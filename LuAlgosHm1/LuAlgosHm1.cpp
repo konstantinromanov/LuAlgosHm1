@@ -85,10 +85,6 @@ int getPossiblePairs(interval* dudes, int* chicks, int n) {
 
 	for (size_t i = 0; i < n; i++)
 	{
-		int midpoint = -1;
-		int left = 0;
-		int right = n - 1;
-
 		int chickLowestIndex = findBoundary(true, std::get<0>(dudes[i]), chicks, n);
 		int chickHighestIndex = findBoundary(false, std::get<1>(dudes[i]), chicks, n);
 
