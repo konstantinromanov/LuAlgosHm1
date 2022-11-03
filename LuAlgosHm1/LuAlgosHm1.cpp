@@ -6,12 +6,14 @@
 #include <vector>
 #include <tuple>
 #include <algorithm>
+#include "HeapSort.h"
+
 MaxHeap<int> findMinElements(int* arr, int arrSize, int k);
 int findMostPopularElement(int* arr, int arrSize);
 
-
 typedef std::tuple<int, int> interval;
-int getPossiblePairs(std::vector<interval> dudes, std::vector<int> chicks);
+
+int getPossiblePairs(interval* dudes, int* chicks, int n);
 
 int main()
 {
@@ -30,57 +32,40 @@ int main()
 	//int arrSize = sizeof(arr1) / sizeof(arr1[0]);
 
 	//int mostPopular = findMostPopularElement(arr2, arrSize);
-	//std::cout << mostPopular;
+	//std::cout << mostPopular;	
 
-	//int arr[] = { 7, 2, 3, 4, 9 };
-	//std::tuple<int, int> arr33[3]{};
-	std::vector<interval> dudes;
-
-	interval t1 = std::make_tuple(1, 8);
-	interval t2 = std::make_tuple(3, 5);
-	interval t3 = std::make_tuple(7, 9);
-	interval t4 = std::make_tuple(3, 7);
-	interval t5 = std::make_tuple(5, 7);
-
-	dudes.push_back(t1);
-	dudes.push_back(t2);
-	dudes.push_back(t3);
-	dudes.push_back(t4);
-	dudes.push_back(t5);
-
-	std::vector<int> chicks;
-
-	chicks.push_back(8);
-	chicks.push_back(6);
-	chicks.push_back(4);
-	chicks.push_back(1);
-	chicks.push_back(10);
-
-	//std::cout << std::get<0>(dudes[0]);
-	//std::cout << std::get<1>(dudes[0]);
-
-	int pairs = getPossiblePairs(dudes, chicks);
+	std::tuple<int, int> dudes[] = {
+		std::make_tuple(1, 8),
+		std::make_tuple(3, 5),
+		std::make_tuple(7, 9),
+		std::make_tuple(3, 7),
+		std::make_tuple(5, 7)
+	};
+	
+	int chicks[] = { 8, 6, 4, 1, 10 };
+	int n = sizeof(dudes) / sizeof(dudes[0]);
+	int pairs = getPossiblePairs(dudes, chicks, n);
 
 	std::cout << pairs;
 }
 
-int getPossiblePairs(std::vector<interval> dudes, std::vector<int> chicks) {
+int getPossiblePairs(interval* dudes, int* chicks, int n) {
 
-	int counter = 0;
-	// TODO. sort chicks
-	std::sort(chicks.begin(), chicks.end());
+	int counter = 0;	
+	HeapSort<int> sort;
+	sort.ascOrder(chicks, n);
+	
+	auto findBoundary = [](bool isLeftLimit, int limit, int* chicks, int n) {
 
-	auto findBoundary = [](bool isLeftLimit, int limit, std::vector<int> chicks) {
-		
 		int midpoint = -1;
 		int left = 0;
-		int right = chicks.size() - 1;
+		int right = n - 1;
 
 		while (left <= right)
 		{
 			midpoint = (right + left) / 2;
 			int valueAtMidPoint = chicks[midpoint];
-			
+
 			if (limit < valueAtMidPoint)
 			{
 				right = midpoint - 1;
@@ -98,22 +83,22 @@ int getPossiblePairs(std::vector<interval> dudes, std::vector<int> chicks) {
 		return isLeftLimit ? left : right;
 	};
 
-	for (size_t i = 0; i < dudes.size(); i++)
-	{		
+	for (size_t i = 0; i < n; i++)
+	{
 		int midpoint = -1;
 		int left = 0;
-		int right = chicks.size() - 1;
+		int right = n - 1;
 
-		int chickLowestIndex = findBoundary(true, std::get<0>(dudes[i]), chicks);
-		int chickHighestIndex = findBoundary(false, std::get<1>(dudes[i]), chicks);
-		
+		int chickLowestIndex = findBoundary(true, std::get<0>(dudes[i]), chicks, n);
+		int chickHighestIndex = findBoundary(false, std::get<1>(dudes[i]), chicks, n);
+
 		counter += chickHighestIndex - chickLowestIndex + 1;
-		
-		std::cout << "chickLowestIndex: " << chickLowestIndex << std::endl;
-		std::cout << "chickHighestIndex: " << chickHighestIndex << std::endl;
-		std::cout << "counter: " << counter << std::endl;
+
+		//std::cout << "chickLowestIndex: " << chickLowestIndex << std::endl;
+		//std::cout << "chickHighestIndex: " << chickHighestIndex << std::endl;
+		//std::cout << "counter: " << counter << std::endl;
 	}
-		
+
 	return counter;
 }
 
