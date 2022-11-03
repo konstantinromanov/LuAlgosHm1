@@ -57,13 +57,12 @@ int getPossiblePairs(interval* dudes, int* chicks, int n) {
 
 	auto findBoundary = [](bool isLeftLimit, int limit, int* chicks, int n) {
 
-		int midpoint = -1;
 		int left = 0;
 		int right = n - 1;
 
 		while (left <= right)
 		{
-			midpoint = (right + left) / 2;
+			int midpoint = (right + left) / 2;
 			int valueAtMidPoint = chicks[midpoint];
 
 			if (limit < valueAtMidPoint)
