@@ -41,7 +41,7 @@ int main()
 		std::make_tuple(3, 7),
 		std::make_tuple(5, 7)
 	};
-	
+
 	int chicks[] = { 8, 6, 4, 1, 10 };
 	int n = sizeof(dudes) / sizeof(dudes[0]);
 	int pairs = getPossiblePairs(dudes, chicks, n);
@@ -51,10 +51,10 @@ int main()
 
 int getPossiblePairs(interval* dudes, int* chicks, int n) {
 
-	int counter = 0;	
+	int counter = 0;
 	HeapSort<int> sort;
 	sort.ascOrder(chicks, n);
-	
+
 	auto findBoundary = [](bool isLeftLimit, int limit, int* chicks, int n) {
 
 		int midpoint = -1;
@@ -93,10 +93,6 @@ int getPossiblePairs(interval* dudes, int* chicks, int n) {
 		int chickHighestIndex = findBoundary(false, std::get<1>(dudes[i]), chicks, n);
 
 		counter += chickHighestIndex - chickLowestIndex + 1;
-
-		//std::cout << "chickLowestIndex: " << chickLowestIndex << std::endl;
-		//std::cout << "chickHighestIndex: " << chickHighestIndex << std::endl;
-		//std::cout << "counter: " << counter << std::endl;
 	}
 
 	return counter;

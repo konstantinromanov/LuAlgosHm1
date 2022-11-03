@@ -127,9 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HeapSort.cpp" />
     <ClCompile Include="LuAlgosHm1.cpp" />
-    <ClCompile Include="MaxHeap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeapSort.h" />
