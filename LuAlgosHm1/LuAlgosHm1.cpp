@@ -17,6 +17,8 @@ int getPossiblePairs(interval* dudes, int* chicks, int n);
 
 int main()
 {
+	// ---------------------- task 3 ------------------
+
 	//int arr[] = { 7, 2, 3, 4, 9 };
 	//int arrSize = sizeof(arr) / sizeof(arr[0]);
 	//int k = 3;
@@ -24,6 +26,8 @@ int main()
 	//MaxHeap<int> maxHeap = findMinElements(arr, arrSize, k);
 
 	//std::cout << maxHeap.toString();
+
+	// ---------------------- task 4 ------------------
 
 	//int arr1[] = { 3, 3, 3, 2, 1 };
 	//int arr2[] = { 2, 3, 1, 1, 1 };
@@ -34,8 +38,10 @@ int main()
 	//int mostPopular = findMostPopularElement(arr2, arrSize);
 	//std::cout << mostPopular;	
 
+	// ---------------------- task 5 ------------------
+
 	std::tuple<int, int> dudes[] = {
-		std::make_tuple(1, 8),
+		std::make_tuple(1, 8),		
 		std::make_tuple(3, 5),
 		std::make_tuple(7, 9),
 		std::make_tuple(3, 7),
